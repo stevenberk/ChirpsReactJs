@@ -1,5 +1,11 @@
 let h = React.createElement;
 
+let generateId = 4;
+// () =>
+//   {Math.floor(Math.random() * 9).toString();
+// return generateId(10);}
+
+
 let EnterChirp = (props) =>{
     return h('div', null, 
         h("h2", null, props.chirp),
@@ -26,7 +32,7 @@ render(){
         onSubmit: (event) => {
             event.preventDefault();
             event.target.value;
-            console.log(newChirp);
+            this.props.addChirp(this.state.newChirp);
             }
         },
             h("input", {
@@ -37,7 +43,7 @@ render(){
             }
         })
     )   
-    //  ,   h(EnterChirp(this.state.newChirp))
+    
     
 }
 }
@@ -68,17 +74,27 @@ class MyComponent extends React.Component {
     }
 
 
-        render(){   
+        render(){ 
+            let addChirp = (chirpcontent) =>{
+                let newUserId = 4;
+                let newMyArray = this.state.myArray.concat({
+                    userId: newUserId,
+                    chirp: chirpcontent});
+                    this.setState({
+                    myArray: newMyArray
+                })
+            };
+           
         return h("main", null,  
             h(CreateHeader),
-            h(CreateChirp),
+            h(CreateChirp, {addChirp: addChirp}),
             h(MapChirps, {chirplist: this.state.myArray})
-           
+          
     )
-
+}
     
   }
-}
+
 
  ReactDOM.render(
      h(MyComponent), 
