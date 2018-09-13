@@ -14,9 +14,32 @@ let MapChirps = (props) =>{
         )
     ])
 }
-
-let CreateInput = (props) => {
-    return h("input", {})
+class CreateChirp extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            newChirp: ""
+        }
+    }
+render(){
+    return h("form", {
+        onSubmit: (event) => {
+            event.preventDefault();
+            event.target.value;
+            console.log(newChirp);
+            }
+        },
+            h("input", {
+                type: "text", 
+                value: this.state.newChirp,
+                onChange: (event) => {
+                    this.setState({newChirp: event.target.value})
+            }
+        })
+    )   
+    //  ,   h(EnterChirp(this.state.newChirp))
+    
+}
 }
 
 let CreateHeader = (props) => {
@@ -48,7 +71,7 @@ class MyComponent extends React.Component {
         render(){   
         return h("main", null,  
             h(CreateHeader),
-            h(CreateInput),
+            h(CreateChirp),
             h(MapChirps, {chirplist: this.state.myArray})
            
     )
