@@ -33,6 +33,7 @@ render(){
             event.preventDefault();
             event.target.value;
             this.props.addChirp(this.state.newChirp);
+            
             }
         },
             h("input", {
