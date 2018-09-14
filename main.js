@@ -1,24 +1,19 @@
 let h = React.createElement;
 
 let generateId = 4;
-// () =>
-//   {Math.floor(Math.random() * 9).toString();
-// return generateId(10);}
-
 
 let EnterChirp = (props) =>{
-    return h('div', null, 
-        h("h2", null, props.chirp),
-        h("h3", null, props.userId)
-        )
+    return <div>
+        <h2> {props.chirp} </h2>
+        {/* <h3> {props.userId} </h3> */}
+        </div> ;
 }
 
 let MapChirps = (props) =>{
-    return h('div', {}, [
-        props.chirplist.map(chirp =>
-            h(EnterChirp, {chirp: chirp.chirp, key: chirp.userId}) 
-        )
-    ])
+    return <div>
+            {props.chirplist.map(chirp =>
+            <EnterChirp chirp={chirp.chirp} key={chirp.userId}/>)}
+         </div> ;
 }
 class CreateChirp extends React.Component {
     constructor(props) {
@@ -28,31 +23,22 @@ class CreateChirp extends React.Component {
         }
     }
 render(){
-    return h("form", {
-        onSubmit: (event) => {
-            event.preventDefault();
-            event.target.value;
-            this.props.addChirp(this.state.newChirp);
-            
-            }
-        },
-            h("input", {
-                type: "text", 
-                value: this.state.newChirp,
-                onChange: (event) => {
+    return <form onSubmit={(event) => {
+        event.preventDefault();
+        event.target.value;
+        this.props.addChirp(this.state.newChirp);
+        }}>
+        <input type="text" 
+                value= {this.state.newChirp}
+                onChange={(event) => 
                     this.setState({newChirp: event.target.value})
-            }
-        })
-    )   
-    
-    
+            }/> 
+         </form> 
 }
 }
 
-let CreateHeader = (props) => {
-    return h("h1", {}, "wassup")
-}
-
+let JSX = <h1>wassup</h1>;
+    
 class MyComponent extends React.Component {
     constructor(props) {
       super(props);
@@ -73,8 +59,6 @@ class MyComponent extends React.Component {
         ]
       };
     }
-
-
         render(){ 
             let addChirp = (chirpcontent) =>{
                 let newUserId = 4;
@@ -85,18 +69,12 @@ class MyComponent extends React.Component {
                     myArray: newMyArray
                 })
             };
-           
-        return h("main", null,  
-            h(CreateHeader),
+        return h("div", null,  
             h(CreateChirp, {addChirp: addChirp}),
-            h(MapChirps, {chirplist: this.state.myArray})
-          
+            h(MapChirps, {chirplist: this.state.myArray}),
     )
 }
-    
-  }
-
-
- ReactDOM.render(
-     h(MyComponent), 
+}
+ ReactDOM.render([JSX, 
+     h(MyComponent)], 
      document.getElementById("root")); 
