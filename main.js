@@ -12,7 +12,7 @@ let EnterChirp = (props) =>{
 let MapChirps = (props) =>{
     return <div>
             {props.chirplist.map(chirp =>
-            <EnterChirp chirp={chirp.chirp} key={chirp.userId}/>)}
+            <EnterChirp chirp={chirp.chirp.toUpperCase()} key={chirp.userId}/>)}
          </div> ;
 }
 class CreateChirp extends React.Component {
@@ -64,7 +64,7 @@ class MyComponent extends React.Component {
                 let newUserId = 4;
                 let newMyArray = this.state.myArray.concat({
                     userId: newUserId,
-                    chirp: chirpcontent});
+                    chirp: chirpcontent.toUpperCase()});
                     this.setState({
                     myArray: newMyArray
                 })
