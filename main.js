@@ -1,7 +1,5 @@
 let h = React.createElement;
 
-let generateId = 4;
-
 let EnterContent = (props) =>{
     return <div>
         <h2> {props.content} </h2>
@@ -34,19 +32,23 @@ render(){
                     this.setState({newContent: event.target.value})
             }/> 
          </form> 
+    }
 }
-}
 
-
-
-let JSX = <h1>whats Upper</h1>;
+let JSXheader = <h1>whats Upper</h1>;
+let HomePage = (props) => 
+    h("div", null,  
+        JSXheader,
+        h(CreateContent, {addContent: props.addContent}),
+        h(MapContents, {Contentlist: props.myArray})
+)
     
-class MyComponent extends React.Component {
+class HomepageContainer extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
         myArray: [
-        // this is just a placeholder array
+        // this is just a placeholder array content
             // {
             // "userId": 1,
             // "id": 0,
@@ -57,7 +59,7 @@ class MyComponent extends React.Component {
       };
         let getContent = () =>{
             // API to an array
-          return fetch('http://0.tcp.ngrok.io:18229/wassups.json')
+          return fetch('http://0.tcp.ngrok.io:11971/wassups.json')
           .then(res => res.json())
           .then(wassups => {
               this.setState({
@@ -65,7 +67,6 @@ class MyComponent extends React.Component {
               })
           }
           )
-        //   .then(data => console.log(data))
       }
       getContent();
     }
@@ -81,12 +82,10 @@ class MyComponent extends React.Component {
                     myArray: newMyArray
                 })
             };
-        return h("div", null,  
-            h(CreateContent, {addContent: addContent}),
-            h(MapContents, {Contentlist: this.state.myArray}),
-    )
+        return  h(HomePage, {addContent, myArray: this.state.myArray});
+    
+    }
 }
-}
- ReactDOM.render([JSX, 
-     h(MyComponent)], 
+ ReactDOM.render( 
+     h(HomepageContainer), 
      document.getElementById("root")); 
